@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AlgorithmForce.Searching
 {
@@ -29,21 +28,14 @@ namespace AlgorithmForce.Searching
         public static int IndexOf<T>(this IReadOnlyList<T> s, IReadOnlyList<T> t, int startIndex, IEqualityComparer<T> comparer)
             where T : IEquatable<T>
         {
-            if (s == null) throw new ArgumentNullException(nameof(s));
-            if (t == null) throw new ArgumentNullException(nameof(t));
-
-            if (startIndex < 0)
-                throw new ArgumentOutOfRangeException(nameof(s), "Value is less than zero.");
-
-            if (startIndex >= s.Count)
-                throw new ArgumentOutOfRangeException(nameof(s), "Value is greater than the length of s.");
+            Validate(s, t, startIndex);
 
             // Follow the behavior of string.IndexOf(string) method. 
             if (t.Count == 0) return 0;
             if (s.Count == 0 || s.Count < t.Count) return -1;
 
             if (comparer == null) comparer = EqualityComparer<T>.Default;
-            if (t.Count == 1) return s.IndexOfSingle(t[0], comparer);
+            if (t.Count == 1) return s.IndexOfSingle(t[0], startIndex, comparer);
 
             var table = BuildTable(t, comparer);
             var i = 0;
@@ -72,7 +64,7 @@ namespace AlgorithmForce.Searching
             }
             return -1;
         }
-        
+
         #endregion
 
         #region String
@@ -116,8 +108,34 @@ namespace AlgorithmForce.Searching
 
         #region Others
 
+        internal static void Validate<T>(IReadOnlyList<T> s, IReadOnlyList<T> t, int startIndex)
+        {
+            if (s == null) throw new ArgumentNullException(nameof(s));
+            if (t == null) throw new ArgumentNullException(nameof(t));
+
+            if (startIndex < 0)
+                throw new ArgumentOutOfRangeException(nameof(s), "Value is less than zero.");
+
+            if (startIndex >= s.Count)
+                throw new ArgumentOutOfRangeException(nameof(s), "Value is greater than the length of s.");
+        }
+
+
+        internal static int IndexOfSingle<T>(this IReadOnlyList<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
+            where T : IEquatable<T>
+        {
+            var i = default(int);
+
+            for (i = startIndex; i < s.Count; i++)
+            {
+                if (comparer.Equals(s[i], t))
+                    return i;
+            }
+            return -1;
+        }
+
         internal static int[] BuildTable<T>(IReadOnlyList<T> t, IEqualityComparer<T> comparer)
-            where T: IEquatable<T>
+            where T : IEquatable<T>
         {
             var table = new int[t.Count];
             var i = 2;
@@ -145,24 +163,6 @@ namespace AlgorithmForce.Searching
                 }
             }
             return table;
-        }
-
-        internal static int IndexOfSingle<T>(this IReadOnlyList<T> s, T t, IEqualityComparer<T> comparer)
-            where T : IEquatable<T>
-        {
-            var i = 0;
-
-            for (i = 0; i < s.Count; i++)
-            {
-                if (comparer.Equals(s[i], t))
-                    return i;
-            }
-            return -1;
-        }
-
-        internal static void Validate()
-        {
-
         }
 
         #endregion
