@@ -4,7 +4,7 @@
 
 Unlike traditional KMP algorithm uses which are focused on string searching, the project provides a generic programming model of using KMP algorithm on [IList(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.ilist-1) and [IReadOnlyList(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.ireadonlylist-1), as long as type T is [equatable](https://docs.microsoft.com/en-us/dotnet/core/api/system.iequatable-1). The project also includes a "backward" version of KMP algorithm to search the last occurrence within the instance. Optional parameter [IEqualityComparer(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.iequalitycomparer-1) is supported to provide different comparison behavior for type T.
 
-# Examples
+# Getting Started
 
 Using extension methods is quite similar to [String.IndexOf](https://docs.microsoft.com/en-us/dotnet/core/api/system.string#System_String_IndexOf_System_String_). The following example searchs an integer array in list.
 
