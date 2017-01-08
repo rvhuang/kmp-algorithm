@@ -5,7 +5,7 @@ namespace AlgorithmForce.Searching
 {
     public static class Extensions
     {
-        #region IReadOnlyList(T)
+        #region IReadOnlyList(T) (IndexOf)
 
         public static int IndexOf<T>(this IReadOnlyList<T> s, IReadOnlyList<T> t)
             where T : IEquatable<T>
@@ -33,9 +33,9 @@ namespace AlgorithmForce.Searching
             // Follow the behavior of string.IndexOf(string) method. 
             if (t.Count == 0) return 0;
             if (s.Count == 0 || s.Count < t.Count) return -1;
-          
+
             if (comparer == null) comparer = EqualityComparer<T>.Default;
-            if (t.Count == 1) return s.IndexOfSingle(t[0], startIndex, comparer);
+            if (t.Count == 1) return s.IndexOf(t[0], startIndex, comparer);
 
             var table = BuildTable(t, comparer);
             var i = 0;
@@ -67,7 +67,7 @@ namespace AlgorithmForce.Searching
 
         #endregion
 
-        #region String
+        #region String (IndexOf)
 
         public static int IndexOf(this string s, IReadOnlyList<char> t)
         {
@@ -121,7 +121,7 @@ namespace AlgorithmForce.Searching
             if (s.Count == 0 || s.Count < t.Count) return -1;
 
             if (comparer == null) comparer = EqualityComparer<T>.Default;
-            if (t.Count == 1) return LastIndexOfSingle(s, t[0], startIndex, comparer);
+            if (t.Count == 1) return LastIndexOf(s, t[0], startIndex, comparer);
 
             var table = BuildTable(t, comparer);
             var i = 0; // there is trouble with this line
@@ -205,8 +205,8 @@ namespace AlgorithmForce.Searching
             if (startIndex >= s.Count)
                 throw new ArgumentOutOfRangeException(nameof(s), "Value is greater than the length of s.");
         }
-        
-        internal static int IndexOfSingle<T>(this IReadOnlyList<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
+
+        internal static int IndexOf<T>(this IReadOnlyList<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
             where T : IEquatable<T>
         {
             var i = default(int);
@@ -218,8 +218,8 @@ namespace AlgorithmForce.Searching
             }
             return -1;
         }
-
-        internal static int LastIndexOfSingle<T>(IReadOnlyList<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
+        
+        internal static int LastIndexOf<T>(IReadOnlyList<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
             where T : IEquatable<T>
         {
             var i = default(int);
