@@ -5,7 +5,7 @@ namespace AlgorithmForce.Searching
 {
     public static class Extensions
     {
-        #region IReadOnlyList(T) and IReadOnlyList(T)
+        #region IReadOnlyList(T)
 
         public static int IndexOf<T>(this IReadOnlyList<T> s, IReadOnlyList<T> t)
             where T : IEquatable<T>
@@ -33,7 +33,7 @@ namespace AlgorithmForce.Searching
             // Follow the behavior of string.IndexOf(string) method. 
             if (t.Count == 0) return 0;
             if (s.Count == 0 || s.Count < t.Count) return -1;
-
+          
             if (comparer == null) comparer = EqualityComparer<T>.Default;
             if (t.Count == 1) return s.IndexOfSingle(t[0], startIndex, comparer);
 
@@ -91,6 +91,92 @@ namespace AlgorithmForce.Searching
 
         #endregion
 
+        #region IReadOnlyList(T) (LastIndexOf) 
+
+        public static int LastIndexOf<T>(this IReadOnlyList<T> s, IReadOnlyList<T> t)
+            where T : IEquatable<T>
+        {
+            return s.LastIndexOf(t, s == null ? -1 : s.Count - 1, EqualityComparer<T>.Default);
+        }
+
+        public static int LastIndexOf<T>(this IReadOnlyList<T> s, IReadOnlyList<T> t, IEqualityComparer<T> comparer)
+            where T : IEquatable<T>
+        {
+            return s.LastIndexOf(t, s == null ? -1 : s.Count - 1, comparer);
+        }
+
+        public static int LastIndexOf<T>(this IReadOnlyList<T> s, IReadOnlyList<T> t, int startIndex)
+            where T : IEquatable<T>
+        {
+            return s.LastIndexOf(t, startIndex, EqualityComparer<T>.Default);
+        }
+
+        public static int LastIndexOf<T>(this IReadOnlyList<T> s, IReadOnlyList<T> t, int startIndex, IEqualityComparer<T> comparer)
+            where T : IEquatable<T>
+        {
+            Validate(s, t, startIndex);
+
+            // Follow the behavior of string.LastIndexOf(string) method. 
+            if (t.Count == 0) return 0;
+            if (s.Count == 0 || s.Count < t.Count) return -1;
+
+            if (comparer == null) comparer = EqualityComparer<T>.Default;
+            if (t.Count == 1) return LastIndexOfSingle(s, t[0], startIndex, comparer);
+
+            var table = BuildTable(t, comparer);
+            var i = 0; // there is trouble with this line
+
+            while (startIndex - i >= 0) // there is trouble with this line
+            {
+                if (comparer.Equals(t[t.Count - i - 1], s[startIndex - i]))
+                {
+                    if (i == t.Count - 1)
+                        return startIndex - t.Count + 1;
+                    i++;
+                }
+                else
+                {
+                    if (table[i] > -1)
+                    {
+                        startIndex -= i;
+                        i = table[i];
+                    }
+                    else
+                    {
+                        startIndex--;
+                        i = 0;
+                    }
+                }
+            }
+            return -1;
+        }
+
+        #endregion
+
+        #region String (LastIndexOf)
+
+        public static int LastIndexOf(this string s, IReadOnlyList<char> t)
+        {
+            return s.AsReadOnlyList().LastIndexOf(t, s == null ? -1 : s.Length - 1, EqualityComparer<char>.Default);
+        }
+
+        public static int LastIndexOf(this string s, IReadOnlyList<char> t, EqualityComparer<char> comparer)
+        {
+            return s.AsReadOnlyList().LastIndexOf(t, s == null ? -1 : s.Length - 1, comparer);
+        }
+
+        public static int LastIndexOf(this string s, IReadOnlyList<char> t, int startIndex)
+        {
+            return s.AsReadOnlyList().LastIndexOf(t, startIndex, EqualityComparer<char>.Default);
+        }
+
+        public static int LastIndexOf(this string s, IReadOnlyList<char> t, int startIndex, EqualityComparer<char> comparer)
+        {
+            return s.AsReadOnlyList().LastIndexOf(t, startIndex, comparer);
+        }
+
+        #endregion
+
         #region Wrapper
 
         public static IReadOnlyList<T> AsReadOnlyList<T>(this IList<T> list)
@@ -119,14 +205,26 @@ namespace AlgorithmForce.Searching
             if (startIndex >= s.Count)
                 throw new ArgumentOutOfRangeException(nameof(s), "Value is greater than the length of s.");
         }
-
-
+        
         internal static int IndexOfSingle<T>(this IReadOnlyList<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
             where T : IEquatable<T>
         {
             var i = default(int);
 
             for (i = startIndex; i < s.Count; i++)
+            {
+                if (comparer.Equals(s[i], t))
+                    return i;
+            }
+            return -1;
+        }
+
+        internal static int LastIndexOfSingle<T>(IReadOnlyList<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
+            where T : IEquatable<T>
+        {
+            var i = default(int);
+
+            for (i = startIndex; i >= 0; i--)
             {
                 if (comparer.Equals(s[i], t))
                     return i;
