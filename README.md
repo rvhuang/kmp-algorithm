@@ -14,26 +14,24 @@ Using extension methods is quite similar to [String.IndexOf](https://docs.micros
 
     Console.WriteLine(s.IndexOf(t)); // 5
 ```
+Because [List(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.list-1) and array implemented IReadOnlyList(T) and integer is equatable, the extension method IndexOf is available for search.
 
 Starting at a specified position is also allowed. The following example searchs an integer collection in list, starting at index 6.
-
 ```cs
     var s = Enumerable.Range(0, 100).ToList();
     var t = new[] { 10, 11, 12, 13, 14 };
 
     Console.WriteLine(s.IndexOf(t, 6)); // 10
 ```
+Both methods above return zero-based index of the first occurrence of the specified IList(T) or IReadOnlyList(T) in another list instance, and -1 if it is not found.
 
 Like [String.LastIndexOf](https://docs.microsoft.com/en-us/dotnet/core/api/system.string#System_String_LastIndexOf_System_String_), search starting at last position of the instance is also available. The backward version of KMP algorithm is used in the following example. 
-
 ```cs
     var s = Enumerable.Range(0, 100).ToList();
     var t = new[] { 15, 16, 17, 18, 19 };
 
     Console.WriteLine(s.LastIndexOf(t, 22)); // 15
-```
-
-All methods return zero-based index of the first occurrence of the specified IList(T) or IReadOnlyList(T) in another list instance, and -1 if it is not found.
+``` 
 
 # Targeting
 
