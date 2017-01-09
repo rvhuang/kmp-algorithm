@@ -37,13 +37,13 @@ Like [String.LastIndexOf](https://docs.microsoft.com/en-us/dotnet/core/api/syste
     Console.WriteLine(s.LastIndexOf(t)); // 15
 ``` 
 
-Iterator pattern for enumerating indexes is also available. The following example enumerates each of indexes by calling IndexesOf method.
+Iterator pattern for enumerating indexes is supported. The following example enumerates each of indexes by calling IndexesOf method.
 
 ```cs
     var s = "1231abcdabcd123231abcdabcdabcdtrefabc";
-    var t = new[] { 'a', 'b, 'c', 'd', 'a', 'b', 'c', 'd'} ;
+    var t = new[] { 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd'};
 
-    foreach(var index in s.IndexesOf(t))
+    foreach (var index in s.IndexesOf(t))
     {
         Console.WriteLine(index); // 4, 18, 22
     }
