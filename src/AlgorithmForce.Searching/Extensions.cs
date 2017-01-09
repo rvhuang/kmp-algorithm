@@ -177,6 +177,102 @@ namespace AlgorithmForce.Searching
 
         #endregion
 
+        #region IReadOnlyList(T) (IndexesOf)
+
+        public static IEnumerable<int> IndexesOf<T>(this IReadOnlyList<T> s, IReadOnlyList<T> t)
+            where T : IEquatable<T>
+        {
+            return s.IndexesOf(t, 0, EqualityComparer<T>.Default);
+        }
+
+        public static IEnumerable<int> IndexesOf<T>(this IReadOnlyList<T> s, IReadOnlyList<T> t, IEqualityComparer<T> comparer)
+            where T : IEquatable<T>
+        {
+            return s.IndexesOf(t, 0, comparer);
+        }
+
+        public static IEnumerable<int> IndexesOf<T>(this IReadOnlyList<T> s, IReadOnlyList<T> t, int startIndex)
+            where T : IEquatable<T>
+        {
+            return s.IndexesOf(t, startIndex, EqualityComparer<T>.Default);
+        }
+
+        public static IEnumerable<int> IndexesOf<T>(this IReadOnlyList<T> s, IReadOnlyList<T> t, int startIndex, IEqualityComparer<T> comparer)
+            where T : IEquatable<T>
+        {
+            Validate(s, t, startIndex);
+
+            if (comparer == null) comparer = EqualityComparer<T>.Default;
+            if (t.Count == 1)
+                return IndexesOf(s, t[0], startIndex, comparer);
+            else
+                return IndexesOfInteral(s, t, startIndex, comparer);
+        }
+
+        internal static IEnumerable<int> IndexesOfInteral<T>(IReadOnlyList<T> s, IReadOnlyList<T> t, int startIndex, IEqualityComparer<T> comparer)
+            where T : IEquatable<T>
+        {
+            var table = BuildTable(t, comparer);
+            var i = 0;
+
+            while (startIndex + i < s.Count)
+            {
+                if (comparer.Equals(t[i], s[startIndex + i]))
+                {
+                    if (i == t.Count - 1)
+                    {
+                        yield return startIndex;
+
+                        startIndex++;
+                        i = 0;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+                else
+                {
+                    if (table[i] > -1)
+                    {
+                        startIndex += i;
+                        i = table[i];
+                    }
+                    else
+                    {
+                        startIndex++;
+                        i = 0;
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region String (IndexesOf)
+
+        public static IEnumerable<int> IndexesOf(this string s, IReadOnlyList<char> t)
+        {
+            return s.AsReadOnlyList().IndexesOf(t, 0, EqualityComparer<char>.Default);
+        }
+
+        public static IEnumerable<int> IndexesOf(this string s, IReadOnlyList<char> t, IEqualityComparer<char> comparer)
+        {
+            return s.AsReadOnlyList().IndexesOf(t, 0, comparer);
+        }
+
+        public static IEnumerable<int> IndexesOf(this string s, IReadOnlyList<char> t, int startIndex)
+        {
+            return s.AsReadOnlyList().IndexesOf(t, startIndex, EqualityComparer<char>.Default);
+        }
+
+        public static IEnumerable<int> IndexesOf(this string s, IReadOnlyList<char> t, int startIndex, IEqualityComparer<char> comparer)
+        {
+            return s.AsReadOnlyList().IndexesOf(t, startIndex, comparer);
+        }
+
+        #endregion
+
         #region Wrapper
 
         public static IReadOnlyList<T> AsReadOnlyList<T>(this IList<T> list)
@@ -218,7 +314,7 @@ namespace AlgorithmForce.Searching
             }
             return -1;
         }
-        
+
         internal static int LastIndexOf<T>(IReadOnlyList<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
             where T : IEquatable<T>
         {
@@ -230,6 +326,18 @@ namespace AlgorithmForce.Searching
                     return i;
             }
             return -1;
+        }
+
+        internal static IEnumerable<int> IndexesOf<T>(IReadOnlyList<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
+            where T : IEquatable<T>
+        {
+            var i = default(int);
+
+            for (i = startIndex; i < s.Count; i++)
+            {
+                if (comparer.Equals(s[i], t))
+                    yield return i;
+            }
         }
 
         internal static int[] BuildTable<T>(IReadOnlyList<T> t, IEqualityComparer<T> comparer)
