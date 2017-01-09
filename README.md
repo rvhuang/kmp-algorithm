@@ -17,7 +17,7 @@ Using extension methods is quite similar to [String.IndexOf](https://docs.micros
 
 Because [List(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.list-1) and array implemented IReadOnlyList(T) and integer is equatable, the extension method IndexOf is available for search.
 
-Starting at a specified position is also allowed. The following example searchs an integer collection in list, starting at index 6.
+Starting at a specified position is also allowed. The following example searches an integer collection in list, starting at index 6.
 
 ```cs
     var s = Enumerable.Range(0, 100).ToList();
@@ -34,8 +34,22 @@ Like [String.LastIndexOf](https://docs.microsoft.com/en-us/dotnet/core/api/syste
     var s = Enumerable.Range(0, 100).ToList();
     var t = new[] { 15, 16, 17, 18, 19 };
 
-    Console.WriteLine(s.LastIndexOf(t, 22)); // 15
+    Console.WriteLine(s.LastIndexOf(t)); // 15
 ``` 
+
+Iterator pattern for enumerating indexes is also available. The following example enumerates each of indexes by calling IndexesOf method.
+
+```cs
+    var s = "1231abcdabcd123231abcdabcdabcdtrefabc";
+    var t = new[] { 'a', 'b, 'c', 'd', 'a', 'b', 'c', 'd'} ;
+
+    foreach(var index in s.IndexesOf(t))
+    {
+        Console.WriteLine(index); // 4, 18, 22
+    }
+```
+
+In this case, caller can start enumerating the collection of indexes before all indexes are found.
 
 # Targeting
 
