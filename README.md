@@ -4,7 +4,7 @@
 
 Unlike traditional KMP algorithm uses which are focused on string searching, the project provides a generic programming model of using KMP algorithm on [IList(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.ilist-1) and [IReadOnlyList(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.ireadonlylist-1), as long as type T is [equatable](https://docs.microsoft.com/en-us/dotnet/core/api/system.iequatable-1). The project also includes a "backward" version of KMP algorithm to search the last occurrence within the instance. Optional parameter [IEqualityComparer(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.iequalitycomparer-1) is supported to provide different comparison behavior for type T.
 
-# Getting Started
+## Getting Started
 
 Using extension methods is quite similar to [String.IndexOf](https://docs.microsoft.com/en-us/dotnet/core/api/system.string#System_String_IndexOf_System_String_). The following example searchs an integer array in list.
 
@@ -15,7 +15,7 @@ Using extension methods is quite similar to [String.IndexOf](https://docs.micros
     Console.WriteLine(s.IndexOf(t)); // 5
 ```
 
-Because [List(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.list-1) and array implemented IReadOnlyList(T) and integer is equatable, the extension method IndexOf is available for search.
+Because [List(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.list-1) and array implemented IReadOnlyList(T) and integer is equatable, the extension method ```IndexOf``` is available for search.
 
 Starting at a specified position is also allowed. The following example searches an integer collection in list, starting at index 6.
 
@@ -37,7 +37,7 @@ Like [String.LastIndexOf](https://docs.microsoft.com/en-us/dotnet/core/api/syste
     Console.WriteLine(s.LastIndexOf(t)); // 15
 ``` 
 
-Iterator pattern for enumerating indexes is supported. The following example enumerates each of indexes by calling IndexesOf method.
+The project also provides iterator pattern for enumerating indexes. The following example enumerates each of indexes by calling ```IndexesOf``` method.
 
 ```cs
     var s = "1231abcdabcd123231abcdabcdabcdtrefabc";
@@ -51,7 +51,7 @@ Iterator pattern for enumerating indexes is supported. The following example enu
 
 In this case, caller can start enumerating the collection of indexes before all indexes are found.
 
-# Targeting
+## Targeting
 
 This project currently targets .NET Core.
 
