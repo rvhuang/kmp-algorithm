@@ -2,11 +2,15 @@
 
 **KMP Algorithm .NET** is the .NET implementation of Knuth–Morris–Pratt algorithm. The project defines a set of extension methods that apply the algorithm to strings and lists.
 
-Unlike traditional KMP algorithm uses which are focused on string searching, the project provides a generic programming model of using KMP algorithm on [IList(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.ilist-1) and [IReadOnlyList(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.ireadonlylist-1), as long as type T is [equatable](https://docs.microsoft.com/en-us/dotnet/core/api/system.iequatable-1). The project also includes a "backward" version of KMP algorithm to search the last occurrence within the instance. Optional parameter [IEqualityComparer(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.iequalitycomparer-1) is supported to provide different comparison behavior for type T.
+Unlike traditional KMP algorithm uses which are focused on string searching, the project provides a generic programming model of using KMP algorithm on [IList(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.ilist-1) and [IReadOnlyList(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.ireadonlylist-1), as long as type T is [equatable](https://docs.microsoft.com/en-us/dotnet/core/api/system.iequatable-1). In some cases, you may specify optional parameter [IEqualityComparer(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.iequalitycomparer-1) to provide different comparison behavior for type T. This expands the applicability of the algorithm. 
+
+The project also includes a "backward" version of KMP algorithm that searches the last occurrence of the target within the instance. 
 
 ## Getting Started
 
-Using extension methods is quite similar to [String.IndexOf](https://docs.microsoft.com/en-us/dotnet/core/api/system.string#System_String_IndexOf_System_String_). The following example searchs an integer array in list.
+### First and Last Index Search
+
+Using the extension method is similar to [String.IndexOf](https://docs.microsoft.com/en-us/dotnet/core/api/system.string#System_String_IndexOf_System_String_), as following example shows.
 
 ```cs
     var s = Enumerable.Range(0, 100).ToList();
@@ -15,9 +19,9 @@ Using extension methods is quite similar to [String.IndexOf](https://docs.micros
     Console.WriteLine(s.IndexOf(t)); // 5
 ```
 
-Because [List(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.list-1) and array implemented IReadOnlyList(T) and integer is equatable, the extension method ```IndexOf``` is available for search.
+Because [List(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.list-1) and array implements IReadOnlyList(T) interface, and [Int32](https://docs.microsoft.com/en-us/dotnet/core/api/system.int32) is equatable, the extension method ```IndexOf``` is available for search.
 
-Starting at a specified position is also allowed. The following example searches an integer collection in list, starting at index 6.
+Starting at a specified position is also supported. The following example searches an array of integer in collection, starting at index 6.
 
 ```cs
     var s = Enumerable.Range(0, 100).ToList();
@@ -26,9 +30,8 @@ Starting at a specified position is also allowed. The following example searches
     Console.WriteLine(s.IndexOf(t, 6)); // 10
 ```
 
-Both methods above return zero-based index of the first occurrence of the specified IList(T) or IReadOnlyList(T) in another list instance, and -1 if it is not found.
-
-Like [String.LastIndexOf](https://docs.microsoft.com/en-us/dotnet/core/api/system.string#System_String_LastIndexOf_System_String_), search starting at last position of the instance is also available. The backward version of KMP algorithm is used in the following example. 
+Similar to [String.LastIndexOf](https://docs.microsoft.com/en-us/dotnet/core/api/system.string#System_String_LastIndexOf_System_String_), you can also search the last occurrence of target array in the collection. 
+The backward version of KMP algorithm is used in the following example.
 
 ```cs
     var s = Enumerable.Range(0, 100).ToList();
@@ -37,7 +40,9 @@ Like [String.LastIndexOf](https://docs.microsoft.com/en-us/dotnet/core/api/syste
     Console.WriteLine(s.LastIndexOf(t)); // 15
 ``` 
 
-The project also provides iterator pattern for enumerating indexes. The following example enumerates each of indexes by calling ```IndexesOf``` method.
+### Index Enumeration
+
+The project provides iterator pattern for forward and backward index enumeration. The following example enumerates each of indexes by calling ```IndexesOf``` and ```LastIndexesOf``` method.
 
 ```cs
     var s = "1231abcdabcd123231abcdabcdabcdtrefabc";
@@ -47,11 +52,16 @@ The project also provides iterator pattern for enumerating indexes. The followin
     {
         Console.WriteLine(index); // 4, 18, 22
     }
+
+    foreach (var index in s.LastIndexesOf(t))
+    {
+        Console.WriteLine(index); // 22, 18, 4
+    }
 ```
 
-In this case, caller can start enumerating the collection of indexes before all indexes are found.
+In this example, caller can start enumerating the collection of indexes before all indexes are found.
 
-## Targeting
+## Platform
 
-This project currently targets .NET Core.
+This project currently targets .NET Core only.
 
