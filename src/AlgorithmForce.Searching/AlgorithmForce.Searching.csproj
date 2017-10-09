@@ -9,6 +9,17 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageTags>KMP</PackageTags>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <Authors>Robert Vandenberg Huang</Authors>
+    <Description>The Most Complete .NET/C# Implementation of Knuth–Morris–Pratt Algorithm</Description>
+    <Copyright>MIT</Copyright>
+    <PackageLicenseUrl>https://github.com/rvhuang/kmp-algorithm/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/rvhuang/kmp-algorithm</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/rvhuang/kmp-algorithm</RepositoryUrl>
+    <RepositoryType>GIT</RepositoryType>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
 </Project>
