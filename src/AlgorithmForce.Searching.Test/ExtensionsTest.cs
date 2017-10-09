@@ -6,14 +6,11 @@ namespace AlgorithmForce.Searching.Test
     {
         private readonly ITestOutputHelper _output;
 
-        protected ITestOutputHelper Output
-        {
-            get { return this._output; }
-        }
+        protected ITestOutputHelper Output => _output;
 
         public ExtensionsTest(ITestOutputHelper output)
         {
-            this._output = output;
+            _output = output;
         }
 
         public abstract void TestCaseList();

@@ -401,9 +401,7 @@ namespace AlgorithmForce.Searching
         internal static int IndexOf<T>(this IReadOnlyList<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
             where T : IEquatable<T>
         {
-            var i = default(int);
-
-            for (i = startIndex; i < s.Count; i++)
+            for (var i = startIndex; i < s.Count; i++)
             {
                 if (comparer.Equals(s[i], t))
                     return i;
@@ -414,9 +412,7 @@ namespace AlgorithmForce.Searching
         internal static int LastIndexOf<T>(IReadOnlyList<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
             where T : IEquatable<T>
         {
-            var i = default(int);
-
-            for (i = startIndex; i >= 0; i--)
+            for (var i = startIndex; i >= 0; i--)
             {
                 if (comparer.Equals(s[i], t))
                     return i;
@@ -427,9 +423,7 @@ namespace AlgorithmForce.Searching
         internal static IEnumerable<int> EnumerateIndexes<T>(IReadOnlyList<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
             where T : IEquatable<T>
         {
-            var i = default(int);
-
-            for (i = startIndex; i < s.Count; i++)
+            for (var i = startIndex; i < s.Count; i++)
             {
                 if (comparer.Equals(s[i], t))
                     yield return i;
@@ -439,9 +433,7 @@ namespace AlgorithmForce.Searching
         internal static IEnumerable<int> EnumerateLastIndexes<T>(IReadOnlyList<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
             where T : IEquatable<T>
         {
-            var i = default(int);
-
-            for (i = startIndex; i >= 0; i--)
+            for (var i = startIndex; i >= 0; i--)
             {
                 if (comparer.Equals(s[i], t))
                     yield return i;

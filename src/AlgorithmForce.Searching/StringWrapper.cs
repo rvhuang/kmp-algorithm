@@ -7,21 +7,15 @@ namespace AlgorithmForce.Searching
     {
         #region Fields
 
-        private readonly string str;
+        private readonly string _str;
 
         #endregion
 
         #region Properties
 
-        char IReadOnlyList<char>.this[int index]
-        {
-            get { return this.str[index]; }
-        }
+        char IReadOnlyList<char>.this[int index] => _str[index];
 
-        int IReadOnlyCollection<char>.Count
-        {
-            get { return this.str.Length; }
-        }
+        int IReadOnlyCollection<char>.Count => _str.Length;
 
         #endregion
 
@@ -29,7 +23,7 @@ namespace AlgorithmForce.Searching
 
         public StringWrapper(string str)
         {
-            this.str = str;
+            _str = str;
         }
 
         #endregion
@@ -38,12 +32,12 @@ namespace AlgorithmForce.Searching
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return (this.str as IEnumerable<char>).GetEnumerator();
+            return (_str as IEnumerable<char>).GetEnumerator();
         }
 
         IEnumerator<char> IEnumerable<char>.GetEnumerator()
         {
-            return (this.str as IEnumerable<char>).GetEnumerator();
+            return (_str as IEnumerable<char>).GetEnumerator();
         }
 
         #endregion
@@ -52,20 +46,19 @@ namespace AlgorithmForce.Searching
 
         public override string ToString()
         {
-            return this.str;
+            return _str;
         }
 
         public override bool Equals(object obj)
         {
-            if (obj is StringWrapper)
-                return string.Equals(this.str, (obj as StringWrapper).str);
-            else
-                return false; 
+            if (obj is StringWrapper wrapper)
+                return string.Equals(_str, wrapper._str);
+            return false;
         }
 
         public override int GetHashCode()
         {
-            return this.str.GetHashCode();
+            return _str.GetHashCode();
         }
 
         #endregion

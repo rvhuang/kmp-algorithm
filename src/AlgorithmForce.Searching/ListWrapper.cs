@@ -9,26 +9,17 @@ namespace AlgorithmForce.Searching
     {
         #region Fields
 
-        private readonly IList<T> list;
+        private readonly IList<T> _list;
 
         #endregion
 
         #region Properties
 
-        public T this[int index]
-        {
-            get { return list[index]; }
-        }
+        public T this[int index] => _list[index];
 
-        public int Count
-        {
-            get { return this.list.Count; }
-        }
+        public int Count => _list.Count;
 
-        public bool IsReadOnly
-        {
-            get { return true; }
-        }
+        public bool IsReadOnly => true;
 
         #endregion
 
@@ -36,7 +27,7 @@ namespace AlgorithmForce.Searching
 
         public ListWrapper(IList<T> list)
         {
-            this.list = list;
+            _list = list;
         }
 
         #endregion
@@ -45,12 +36,12 @@ namespace AlgorithmForce.Searching
 
         public IEnumerator<T> GetEnumerator()
         {
-            return this.list.GetEnumerator();
+            return _list.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.list.GetEnumerator();
+            return _list.GetEnumerator();
         }
 
         #endregion
