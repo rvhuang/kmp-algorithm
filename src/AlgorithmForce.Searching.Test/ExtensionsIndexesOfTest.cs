@@ -9,7 +9,7 @@ namespace AlgorithmForce.Searching.Test
 
         public ExtensionsIndexesOfTest(ITestOutputHelper output)
         {
-            this._output = output;
+            _output = output;
         }
 
         [Fact]

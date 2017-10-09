@@ -10,7 +10,7 @@ namespace AlgorithmForce.Searching.Test
 
         public TableBuildingTest(ITestOutputHelper output)
         {
-            this._output = output;
+            _output = output;
         }
 
         [Fact]
@@ -20,8 +20,8 @@ namespace AlgorithmForce.Searching.Test
             var expected = new[] { -1, 0, 0, 0, 1, 2 };
             var actual = Extensions.BuildTable(input.AsReadOnlyList(), EqualityComparer<char>.Default);
             
-            this._output.WriteLine("Expected:\t{0}", string.Join(", ", expected));
-            this._output.WriteLine("Actual:\t{0}", string.Join(", ", actual));
+            _output.WriteLine("Expected:\t{0}", string.Join(", ", expected));
+            _output.WriteLine("Actual:\t{0}", string.Join(", ", actual));
 
             Assert.Equal(expected, actual);
         }
@@ -33,8 +33,8 @@ namespace AlgorithmForce.Searching.Test
             var expected = new[] { -1, 0, 0, 0, 0, 0 };
             var actual = Extensions.BuildTable(input.AsReadOnlyList(), EqualityComparer<char>.Default);
 
-            this._output.WriteLine("Expected:\t{0}", string.Join(", ", expected));
-            this._output.WriteLine("Actual:\t{0}", string.Join(", ", actual));
+            _output.WriteLine("Expected:\t{0}", string.Join(", ", expected));
+            _output.WriteLine("Actual:\t{0}", string.Join(", ", actual));
 
             Assert.Equal(expected, actual);
         }
@@ -46,8 +46,8 @@ namespace AlgorithmForce.Searching.Test
             var expected = new[] { -1, 0, 0, 1, 2, 3, 1, 1, 2 };
             var actual = Extensions.BuildTable(input.AsReadOnlyList(), EqualityComparer<char>.Default);
 
-            this._output.WriteLine("Expected:\t{0}", string.Join(", ", expected));
-            this._output.WriteLine("Actual:\t{0}", string.Join(", ", actual));
+            _output.WriteLine("Expected:\t{0}", string.Join(", ", expected));
+            _output.WriteLine("Actual:\t{0}", string.Join(", ", actual));
 
             Assert.Equal(expected, actual);
         }
@@ -59,8 +59,8 @@ namespace AlgorithmForce.Searching.Test
             var expected = new[] { -1, 0, 1, 2, 3, 4, 5, 6, 7 };
             var actual = Extensions.BuildTable(input.AsReadOnlyList(), EqualityComparer<char>.Default);
 
-            this._output.WriteLine("Expected:\t{0}", string.Join(", ", expected));
-            this._output.WriteLine("Actual:\t{0}", string.Join(", ", actual));
+            _output.WriteLine("Expected:\t{0}", string.Join(", ", expected));
+            _output.WriteLine("Actual:\t{0}", string.Join(", ", actual));
 
             Assert.Equal(expected, actual);
         }
