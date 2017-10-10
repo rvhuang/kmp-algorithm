@@ -9,4 +9,5 @@ install:
 
 script:
 - dotnet build
-- dotnet test src/AlgorithmForce.Searching.Test/AlgorithmForce.Searching.Test.csproj
+- cd src/AlgorithmForce.Searching.Test/
+- dotnet xunit
