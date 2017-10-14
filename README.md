@@ -63,6 +63,11 @@ The project provides iterator pattern for forward and backward index enumeration
 
 In this example, caller can start enumerating the collection of indexes before all indexes are found.
 
+## Future Works
+
+* Full documentation comments and Nuget package.
+* `IndexOfAny` implementation.
+
 ## Platform
 
 This project currently targets .NET Core only.
