@@ -15,12 +15,12 @@ namespace AlgorithmForce.Searching.Test
         [Fact]
         public void TestCaseDefault()
         {
-            var s = @"Vrogros, the Underlord, is a melee strength hero 
-                whose commanding presence is crucial to his team's success.
-                With his long-lasting abilities, Underlord is able to 
-                control wide areas of the battlefield during teamfights.";
+            var s = string.Concat("Vrogros, the Underlord, is a melee strength hero ",
+                "whose commanding presence is crucial to his team's success. ",
+                "With his long-lasting abilities, Underlord is able to ",
+                "control wide areas of the battlefield during teamfights.");
             var t = new[] { 'U', 'n', 'd', 'e', 'r', 'l', 'o', 'r', 'd' };
-            var expected = new[] { 13, 177 };
+            var expected = new[] { 13, 142 };
 
             Assert.Equal(expected, s.IndexesOf(t));
         }
@@ -38,12 +38,12 @@ namespace AlgorithmForce.Searching.Test
         [Fact]
         public void TestCaseWithStartIndex()
         {
-            var s = @"Vrogros, the Underlord, is a melee strength hero 
-                whose commanding presence is crucial to his team's success.
-                With his long-lasting abilities, Underlord is able to 
-                control wide areas of the battlefield during teamfights.";
+            var s = string.Concat("Vrogros, the Underlord, is a melee strength hero ",
+                "whose commanding presence is crucial to his team's success. ",
+                "With his long-lasting abilities, Underlord is able to ",
+                "control wide areas of the battlefield during teamfights.");
             var t = new[] { 'U', 'n', 'd', 'e', 'r', 'l', 'o', 'r', 'd' };
-            var expected = new[] { 177 };
+            var expected = new[] { 142 };
 
             Assert.Equal(expected, s.IndexesOf(t, 100));
         }
@@ -51,10 +51,10 @@ namespace AlgorithmForce.Searching.Test
         [Fact]
         public void TestCaseNotFound()
         {
-            var s = @"Vrogros, the Underlord, is a melee strength hero 
-                whose commanding presence is crucial to his team's success.
-                With his long-lasting abilities, Underlord is able to 
-                control wide areas of the battlefield during teamfights.";
+            var s = string.Concat("Vrogros, the Underlord, is a melee strength hero ",
+                "whose commanding presence is crucial to his team's success. ",
+                "With his long-lasting abilities, Underlord is able to ",
+                "control wide areas of the battlefield during teamfights.");
             var t = new[] { 'S', 'u', 'n', ' ', 'W', 'u', 'k', 'o', 'n', 'g' };
 
             Assert.Empty(s.IndexesOf(t));
@@ -63,10 +63,10 @@ namespace AlgorithmForce.Searching.Test
         [Fact]
         public void TestCaseWithStartIndexNotFound()
         {
-            var s = @"Vrogros, the Underlord, is a melee strength hero 
-                whose commanding presence is crucial to his team's success.
-                With his long-lasting abilities, Underlord is able to 
-                control wide areas of the battlefield during teamfights.";
+            var s = string.Concat("Vrogros, the Underlord, is a melee strength hero ",
+                "whose commanding presence is crucial to his team's success. ",
+                "With his long-lasting abilities, Underlord is able to ",
+                "control wide areas of the battlefield during teamfights.");
             var t = new[] { 'U', 'n', 'd', 'e', 'r', 'l', 'o', 'r', 'd' };
 
             Assert.Empty(s.IndexesOf(t, 180));

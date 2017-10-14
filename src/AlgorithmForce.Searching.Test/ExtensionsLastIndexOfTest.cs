@@ -56,28 +56,38 @@ namespace AlgorithmForce.Searching.Test
             Assert.Equal(1, s.LastIndexOf(t));
         }
 
+        /// <summary>
+        /// In this test case, we are going to compare 
+        /// string.LastIndexOf() and Extensions.LastIndexOf() to see
+        /// if they have same behavior.
+        /// </summary>
         [Fact]
         public override void TestCaseString()
         {
-            var s = @"Vrogros, the Underlord, is a melee strength hero 
-                whose commanding presence is crucial to his team's success.
-                With his long-lasting abilitties, Underlord is able to 
-                control wide areas of the battlefield during teamfights.";
+            var s = string.Concat("Vrogros, the Underlord, is a melee strength hero ",
+                "whose commanding presence is crucial to his team's success. ",
+                "With his long-lasting abilities, Underlord is able to ",
+                "control wide areas of the battlefield during teamfights.");
             var t = new[] { 'V', 'r', 'o', 'g', 'r', 'o', 's' };
 
-            Assert.Equal(0, s.LastIndexOf(t));
+            Assert.Equal(s.LastIndexOf(string.Concat(t)), s.LastIndexOf(t));
         }
 
+        /// <summary>
+        /// In this test case, we are going to compare 
+        /// string.LastIndexOf() and Extensions.LastIndexOf() to see
+        /// if they have same behavior.
+        /// </summary>
         [Fact]
         public override void TestCaseStringWithStartIndex()
         {
-            var s = @"Vrogros, the Underlord, is a melee strength hero 
-                whose commanding presence is crucial to his team's success.
-                With his long-lasting abilities, Underlord is able to 
-                control wide areas of the battlefield during teamfights.";
+            var s = string.Concat("Vrogros, the Underlord, is a melee strength hero ",
+                "whose commanding presence is crucial to his team's success. ",
+                "With his long-lasting abilities, Underlord is able to ",
+                "control wide areas of the battlefield during teamfights.");
             var t = new[] { 'U', 'n', 'd', 'e', 'r', 'l', 'o', 'r', 'd' };
 
-            Assert.Equal(13, s.LastIndexOf(t, 128));
+            Assert.Equal(s.LastIndexOf(string.Concat(t), 128), s.LastIndexOf(t, 128));
         }
 
         [Fact]
@@ -95,10 +105,10 @@ namespace AlgorithmForce.Searching.Test
         [Fact]
         public override void TestCaseStringWithStartIndexNotFound()
         {
-            var s = @"Vrogros, the Underlord, is a melee strength hero 
-                whose commanding presence is crucial to his team's success.
-                With his long-lasting abilities, Underlord is able to 
-                control wide areas of the battlefield during teamfights.";
+            var s = string.Concat("Vrogros, the Underlord, is a melee strength hero ",
+                "whose commanding presence is crucial to his team's success. ",
+                "With his long-lasting abilities, Underlord is able to ",
+                "control wide areas of the battlefield during teamfights.");
             var t = new[] { 't', 'e', 'a', 'm', 'f', 'i', 'g', 'h', 't', 's' };
 
             Assert.Equal(-1, s.LastIndexOf(t, 128));
