@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace AlgorithmForce.Searching
 {
+    /// <summary>
+    /// Provides a set of extensions for searching specified collection in another collection.
+    /// </summary>
     public static class Extensions
     {
         #region IReadOnlyList(T) (IndexOf)
@@ -69,21 +72,71 @@ namespace AlgorithmForce.Searching
 
         #region String (IndexOf)
 
+        /// <summary>
+        /// Reports the zero-based index of the first occurrence of the specified character collection in this instance.
+        /// </summary>
+        /// <param name="s">The string instance.</param>
+        /// <param name="t">The character collection to seek.</param>
+        /// <returns>
+        /// The zero-based index position of value if that string is found, or -1 if it is not. 
+        /// If <see cref="t"/> is empty, the return value is 0.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
         public static int IndexOf(this string s, IReadOnlyList<char> t)
         {
             return s.AsReadOnlyList().IndexOf(t, 0, EqualityComparer<char>.Default);
         }
 
+        /// <summary>
+        /// Reports the zero-based index of the first occurrence of the specified character collection in this instance
+        /// and uses the specified <see cref="IEqualityComparer{Char}"/>.
+        /// </summary>
+        /// <param name="s">The string instance.</param>
+        /// <param name="t">The character collection to seek.</param>
+        /// <param name="comparer">The specified <see cref="IEqualityComparer{Char}"/> instance.</param>
+        /// <returns>
+        /// The zero-based index position of value if that string is found, or -1 if it is not. 
+        /// If <see cref="t"/> is empty, the return value is 0.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
         public static int IndexOf(this string s, IReadOnlyList<char> t, EqualityComparer<char> comparer)
         {
             return s.AsReadOnlyList().IndexOf(t, 0, comparer);
         }
 
+        /// <summary>
+        /// Reports the zero-based index of the first occurrence of the specified character collection in this instance. 
+        /// The search starts at a specified character position.
+        /// </summary>
+        /// <param name="s">The string instance.</param>
+        /// <param name="t">The character collection to seek.</param>
+        /// <param name="startIndex">The search starting position.</param>
+        /// <returns>
+        /// The zero-based index position of value if that string is found, or -1 if it is not. 
+        /// If <see cref="t"/> is empty, the return value is 0.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="startIndex"/> is less than 0 or greater than the length of this string.</exception>
         public static int IndexOf(this string s, IReadOnlyList<char> t, int startIndex)
         {
             return s.AsReadOnlyList().IndexOf(t, startIndex, EqualityComparer<char>.Default);
         }
 
+        /// <summary>
+        /// Reports the zero-based index of the first occurrence of the specified character collection in this instance 
+        /// and uses the specified <see cref="IEqualityComparer{Char}"/>.
+        /// The search starts at a specified character position.
+        /// </summary>
+        /// <param name="s">The string instance.</param>
+        /// <param name="t">The character collection to seek.</param>
+        /// <param name="startIndex">The search starting position.</param>
+        /// <param name="comparer">The specified <see cref="IEqualityComparer{Char}"/> instance.</param>
+        /// <returns>
+        /// The zero-based index position of value if that string is found, or -1 if it is not. 
+        /// If <see cref="t"/> is empty, the return value is 0.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="startIndex"/> is less than 0 or greater than the length of this string.</exception>
         public static int IndexOf(this string s, IReadOnlyList<char> t, int startIndex, EqualityComparer<char> comparer)
         {
             return s.AsReadOnlyList().IndexOf(t, startIndex, comparer);
@@ -155,21 +208,72 @@ namespace AlgorithmForce.Searching
 
         #region String (LastIndexOf)
 
+        /// <summary>
+        /// Reports the zero-based index of the first occurrence of the specified character collection in this instance.
+        /// </summary>
+        /// <param name="s">The string instance.</param>
+        /// <param name="t">The character collection to seek.</param>
+        /// <returns>
+        /// The zero-based index position of value if that string is found, or -1 if it is not. 
+        /// If <see cref="t"/> is empty, the return value is the last index position in this instance.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
         public static int LastIndexOf(this string s, IReadOnlyList<char> t)
         {
             return s.AsReadOnlyList().LastIndexOf(t, s == null ? -1 : s.Length - 1, EqualityComparer<char>.Default);
         }
 
+        /// <summary>
+        /// Reports the zero-based index of the first occurrence of the specified character collection in this instance
+        /// and uses the specified <see cref="IEqualityComparer{Char}"/>.
+        /// </summary>
+        /// <param name="s">The string instance.</param>
+        /// <param name="t">The character collection to seek.</param>
+        /// <param name="comparer">The specified <see cref="IEqualityComparer{Char}"/> instance.</param>
+        /// <returns>
+        /// The zero-based index position of value if that string is found, or -1 if it is not. 
+        /// If <see cref="t"/> is empty, the return value is the last index position in this instance.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
         public static int LastIndexOf(this string s, IReadOnlyList<char> t, EqualityComparer<char> comparer)
         {
             return s.AsReadOnlyList().LastIndexOf(t, s == null ? -1 : s.Length - 1, comparer);
         }
 
+        /// <summary>
+        /// Reports the zero-based index of the first occurrence of the specified character collection in this instance. 
+        /// The search starts at a specified character position.
+        /// </summary>
+        /// <param name="s">The string instance.</param>
+        /// <param name="t">The character collection to seek.</param>
+        /// <param name="startIndex">The search starting position.</param>
+        /// <returns>
+        /// The zero-based index position of value if that string is found, or -1 if it is not. 
+        /// If <see cref="t"/> is empty, the return value is the last index position in this instance.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="startIndex"/> is less than 0 or greater than the length of this string.</exception>
         public static int LastIndexOf(this string s, IReadOnlyList<char> t, int startIndex)
         {
             return s.AsReadOnlyList().LastIndexOf(t, startIndex, EqualityComparer<char>.Default);
         }
 
+
+        /// <summary>
+        /// Reports the zero-based index of the first occurrence of the specified character collection in this instance 
+        /// and uses the specified <see cref="IEqualityComparer{Char}"/>.
+        /// The search starts at a specified character position.
+        /// </summary>
+        /// <param name="s">The string instance.</param>
+        /// <param name="t">The character collection to seek.</param>
+        /// <param name="startIndex">The search starting position.</param>
+        /// <param name="comparer">The specified <see cref="IEqualityComparer{Char}"/> instance.</param>
+        /// <returns>
+        /// The zero-based index position of value if that string is found, or -1 if it is not. 
+        /// If <see cref="t"/> is empty, the return value is the last index position in this instance.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="startIndex"/> is less than 0 or greater than the length of this string.</exception>
         public static int LastIndexOf(this string s, IReadOnlyList<char> t, int startIndex, EqualityComparer<char> comparer)
         {
             return s.AsReadOnlyList().LastIndexOf(t, startIndex, comparer);
