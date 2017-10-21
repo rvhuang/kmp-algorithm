@@ -22,4 +22,8 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard1.6\AlgorithmForce.Searching.xml</DocumentationFile>
+  </PropertyGroup>
+
 </Project>
