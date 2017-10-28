@@ -37,7 +37,7 @@ The backward version of KMP algorithm is used in the following example.
 
 ```cs
     var s = Enumerable.Range(0, 100).ToList();
-    var t = new[] List<int> { 15, 16, 17, 18, 19 };
+    var t = new List<int> { 15, 16, 17, 18, 19 };
 
     Console.WriteLine(s.LastIndexOf(t)); // 15
 ``` 
