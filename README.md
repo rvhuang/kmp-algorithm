@@ -26,8 +26,8 @@ Because [List(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collec
 Starting at a specified position is also supported. The following example searches an array of integer in collection, starting at index 6.
 
 ```cs
-    var s = Enumerable.Range(0, 100).ToList();
-    var t = new[] { 10, 11, 12, 13, 14 };
+    var s = Enumerable.Range(0, 100).ToArray();
+    var t = new List<int> { 10, 11, 12, 13, 14 };
 
     Console.WriteLine(s.IndexOf(t, 6)); // 10
 ```
@@ -37,7 +37,7 @@ The backward version of KMP algorithm is used in the following example.
 
 ```cs
     var s = Enumerable.Range(0, 100).ToList();
-    var t = new[] { 15, 16, 17, 18, 19 };
+    var t = new[] List<int> { 15, 16, 17, 18, 19 };
 
     Console.WriteLine(s.LastIndexOf(t)); // 15
 ``` 
@@ -48,7 +48,7 @@ The project provides iterator pattern for forward and backward index enumeration
 
 ```cs
     var s = "1231abcdabcd123231abcdabcdabcdtrefabc";
-    var t = new[] { 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd'};
+    var t = new List<char> { 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd'};
 
     foreach (var index in s.IndexesOf(t))
     {
