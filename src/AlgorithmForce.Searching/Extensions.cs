@@ -405,7 +405,7 @@ namespace AlgorithmForce.Searching
         /// <param name="t">The collection to seek.</param>
         /// <typeparam name="T">The type of element in the collection.</typeparam>
         /// <returns>
-        /// The zero-based index positions of value if one or more <paramref name="t"/> is found. 
+        /// The zero-based index positions of value if one or more <paramref name="t"/> are found. 
         /// If <paramref name="t"/> is empty, no indexes will be enumerated.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
@@ -424,7 +424,7 @@ namespace AlgorithmForce.Searching
         /// <param name="comparer">The specified <see cref="IEqualityComparer{T}"/> instance.</param>
         /// <typeparam name="T">The type of element in the collection.</typeparam>
         /// <returns>
-        /// The zero-based index positions of value if one or more <paramref name="t"/> is found. 
+        /// The zero-based index positions of value if one or more <paramref name="t"/> are found. 
         /// If <paramref name="t"/> is empty, no indexes will be enumerated.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
@@ -443,7 +443,7 @@ namespace AlgorithmForce.Searching
         /// <param name="startIndex">The search starting position.</param>
         /// <typeparam name="T">The type of element in the collection.</typeparam>
         /// <returns>
-        /// The zero-based index positions of value if one or more <paramref name="t"/> is found. 
+        /// The zero-based index positions of value if one or more <paramref name="t"/> are found. 
         /// If <paramref name="t"/> is empty, no indexes will be enumerated.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
@@ -467,7 +467,7 @@ namespace AlgorithmForce.Searching
         /// <param name="comparer">The specified <see cref="IEqualityComparer{T}"/> instance.</param>
         /// <typeparam name="T">The type of element in the collection.</typeparam>
         /// <returns>
-        /// The zero-based index positions of value if one or more <paramref name="t"/> is found. 
+        /// The zero-based index positions of value if one or more <paramref name="t"/> are found. 
         /// If <paramref name="t"/> is empty, no indexes will be enumerated.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
@@ -528,21 +528,75 @@ namespace AlgorithmForce.Searching
 
         #region String (IndexesOf)
 
+        /// <summary>
+        /// Enumerates each zero-based index of all occurrences of the string in this instance.
+        /// </summary>
+        /// <param name="s">The string instance.</param>
+        /// <param name="t">The character collection to seek.</param>
+        /// <returns>
+        /// The zero-based index positions of value if one or more <paramref name="t"/> are found. 
+        /// If <paramref name="t"/> is empty, no indexes will be enumerated.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
         public static IEnumerable<int> IndexesOf(this string s, IReadOnlyList<char> t)
         {
             return s.AsReadOnlyList().IndexesOf(t, 0, EqualityComparer<char>.Default);
         }
 
+        /// <summary>
+        /// Enumerates each zero-based index of all occurrences of the string in this instance
+        /// and uses the specified <see cref="IEqualityComparer{Char}"/>.
+        /// </summary>
+        /// <param name="s">The string instance.</param>
+        /// <param name="t">The character collection to seek.</param>
+        /// <param name="comparer">The specified <see cref="IEqualityComparer{Char}"/> instance.</param>
+        /// <returns>
+        /// The zero-based index positions of value if one or more <paramref name="t"/> are found. 
+        /// If <paramref name="t"/> is empty, no indexes will be enumerated.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
         public static IEnumerable<int> IndexesOf(this string s, IReadOnlyList<char> t, IEqualityComparer<char> comparer)
         {
             return s.AsReadOnlyList().IndexesOf(t, 0, comparer);
         }
 
+        /// <summary>
+        /// Enumerates each zero-based index of all occurrences of the string in this instance.
+        /// The search starts at a specified position.
+        /// </summary>
+        /// <param name="s">The string instance.</param>
+        /// <param name="t">The character collection to seek.</param>
+        /// <param name="startIndex">The search starting position.</param>
+        /// <returns>
+        /// The zero-based index positions of value if one or more <paramref name="t"/> are found. 
+        /// If <paramref name="t"/> is empty, no indexes will be enumerated.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="startIndex"/> is less than zero or greater than <see cref="IReadOnlyCollection{T}.Count">Count</see> of <paramref name="s"/>.
+        /// </exception>
         public static IEnumerable<int> IndexesOf(this string s, IReadOnlyList<char> t, int startIndex)
         {
             return s.AsReadOnlyList().IndexesOf(t, startIndex, EqualityComparer<char>.Default);
         }
 
+        /// <summary>
+        /// Enumerates each zero-based index of all occurrences of the string in this instance
+        /// and uses the specified <see cref="IEqualityComparer{Char}"/>.
+        /// The search starts at a specified position.
+        /// </summary>
+        /// <param name="s">The string instance.</param>
+        /// <param name="t">The character collection to seek.</param>
+        /// <param name="startIndex">The search starting position.</param>
+        /// <param name="comparer">The specified <see cref="IEqualityComparer{Char}"/> instance.</param>
+        /// <returns>
+        /// The zero-based index positions of value if one or more <paramref name="t"/> are found. 
+        /// If <paramref name="t"/> is empty, no indexes will be enumerated.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="startIndex"/> is less than zero or greater than <see cref="IReadOnlyCollection{T}.Count">Count</see> of <paramref name="s"/>.
+        /// </exception>
         public static IEnumerable<int> IndexesOf(this string s, IReadOnlyList<char> t, int startIndex, IEqualityComparer<char> comparer)
         {
             return s.AsReadOnlyList().IndexesOf(t, startIndex, comparer);
@@ -552,24 +606,82 @@ namespace AlgorithmForce.Searching
 
         #region IReadOnlyList(T) (LastIndexesOf)
 
+        /// <summary>
+        /// Reversely enumerates each zero-based index of all occurrences of the specified collection in this instance.
+        /// </summary>
+        /// <param name="s">The current collection.</param>
+        /// <param name="t">The collection to seek.</param>
+        /// <typeparam name="T">The type of element in the collection.</typeparam>
+        /// <returns>
+        /// The zero-based index positions of value in reverse order if one or more <paramref name="t"/> are found. 
+        /// If <paramref name="t"/> is empty, no indexes will be enumerated.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
         public static IEnumerable<int> LastIndexesOf<T>(this IReadOnlyList<T> s, IReadOnlyList<T> t)
             where T : IEquatable<T>
         {
             return s.LastIndexesOf(t, 0, EqualityComparer<T>.Default);
         }
 
+        /// <summary>
+        /// Reversely enumerates each zero-based index of all occurrences of the specified collection in this instance
+        /// and uses the specified <see cref="IEqualityComparer{T}"/>.
+        /// </summary>
+        /// <param name="s">The current collection.</param>
+        /// <param name="t">The collection to seek.</param>
+        /// <param name="comparer">The specified <see cref="IEqualityComparer{T}"/> instance.</param>
+        /// <typeparam name="T">The type of element in the collection.</typeparam>
+        /// <returns>
+        /// The zero-based index positions of value in reverse order if one or more <paramref name="t"/> are found. 
+        /// If <paramref name="t"/> is empty, no indexes will be enumerated.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
         public static IEnumerable<int> LastIndexesOf<T>(this IReadOnlyList<T> s, IReadOnlyList<T> t, IEqualityComparer<T> comparer)
             where T : IEquatable<T>
         {
             return s.LastIndexesOf(t, 0, comparer);
         }
 
+        /// <summary>
+        /// Reversely enumerates each zero-based index of all occurrences of the specified collection in this instance.
+        /// The search starts at a specified position.
+        /// </summary>
+        /// <param name="s">The current collection.</param>
+        /// <param name="t">The collection to seek.</param>
+        /// <param name="startIndex">The search starting position.</param>
+        /// <typeparam name="T">The type of element in the collection.</typeparam>
+        /// <returns>
+        /// The zero-based index positions of value in reverse order if one or more <paramref name="t"/> are found. 
+        /// If <paramref name="t"/> is empty, no indexes will be enumerated.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="startIndex"/> is less than zero or greater than <see cref="IReadOnlyCollection{T}.Count">Count</see> of <paramref name="s"/>.
+        /// </exception>
         public static IEnumerable<int> LastIndexesOf<T>(this IReadOnlyList<T> s, IReadOnlyList<T> t, int startIndex)
             where T : IEquatable<T>
         {
             return s.LastIndexesOf(t, startIndex, EqualityComparer<T>.Default);
         }
 
+        /// <summary>
+        /// Reversely enumerates each zero-based index of all occurrences of the specified collection in this instance
+        /// and uses the specified <see cref="IEqualityComparer{T}"/>.
+        /// The search starts at a specified position.
+        /// </summary>
+        /// <param name="s">The current collection.</param>
+        /// <param name="t">The collection to seek.</param>
+        /// <param name="startIndex">The search starting position.</param>
+        /// <param name="comparer">The specified <see cref="IEqualityComparer{T}"/> instance.</param>
+        /// <typeparam name="T">The type of element in the collection.</typeparam>
+        /// <returns>
+        /// The zero-based index positions of value in reverse order if one or more <paramref name="t"/> are found. 
+        /// If <paramref name="t"/> is empty, no indexes will be enumerated.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="startIndex"/> is less than zero or greater than <see cref="IReadOnlyCollection{T}.Count">Count</see> of <paramref name="s"/>.
+        /// </exception>
         public static IEnumerable<int> LastIndexesOf<T>(this IReadOnlyList<T> s, IReadOnlyList<T> t, int startIndex, IEqualityComparer<T> comparer)
             where T : IEquatable<T>
         {
@@ -624,21 +736,75 @@ namespace AlgorithmForce.Searching
 
         #region String (LastIndexesOf)
 
+        /// <summary>
+        /// Reversely enumerates each zero-based index of all occurrences of the string in this instance.
+        /// </summary>
+        /// <param name="s">The string instance.</param>
+        /// <param name="t">The character collection to seek.</param>
+        /// <returns>
+        /// The zero-based index positions of value in reverse order if one or more <paramref name="t"/> are found. 
+        /// If <paramref name="t"/> is empty, no indexes will be enumerated.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
         public static IEnumerable<int> LastIndexesOf(this string s, IReadOnlyList<char> t)
         {
             return s.AsReadOnlyList().LastIndexesOf(t, s == null ? -1 : s.Length - 1, EqualityComparer<char>.Default);
         }
 
+        /// <summary>
+        /// Reversely enumerates each zero-based index of all occurrences of the string in this instance
+        /// and uses the specified <see cref="IEqualityComparer{Char}"/>.
+        /// </summary>
+        /// <param name="s">The string instance.</param>
+        /// <param name="t">The character collection to seek.</param>
+        /// <param name="comparer">The specified <see cref="IEqualityComparer{Char}"/> instance.</param>
+        /// <returns>
+        /// The zero-based index positions of value in reverse order if one or more <paramref name="t"/> are found. 
+        /// If <paramref name="t"/> is empty, no indexes will be enumerated.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
         public static IEnumerable<int> LastIndexesOf(this string s, IReadOnlyList<char> t, IEqualityComparer<char> comparer)
         {
             return s.AsReadOnlyList().LastIndexesOf(t, s == null ? -1 : s.Length - 1, comparer);
         }
 
+        /// <summary>
+        /// Reversely enumerates each zero-based index of all occurrences of the string in this instance.
+        /// The search starts at a specified position.
+        /// </summary>
+        /// <param name="s">The string instance.</param>
+        /// <param name="t">The character collection to seek.</param>
+        /// <param name="startIndex">The search starting position.</param>
+        /// <returns>
+        /// The zero-based index positions of value in reverse order if one or more <paramref name="t"/> are found. 
+        /// If <paramref name="t"/> is empty, no indexes will be enumerated.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="startIndex"/> is less than zero or greater than <see cref="IReadOnlyCollection{T}.Count">Count</see> of <paramref name="s"/>.
+        /// </exception>
         public static IEnumerable<int> LastIndexesOf(this string s, IReadOnlyList<char> t, int startIndex)
         {
             return s.AsReadOnlyList().LastIndexesOf(t, startIndex, EqualityComparer<char>.Default);
         }
 
+        /// <summary>
+        /// Reversely enumerates each zero-based index of all occurrences of the string in this instance
+        /// and uses the specified <see cref="IEqualityComparer{Char}"/>.
+        /// The search starts at a specified position.
+        /// </summary>
+        /// <param name="s">The string instance.</param>
+        /// <param name="t">The character collection to seek.</param>
+        /// <param name="startIndex">The search starting position.</param>
+        /// <param name="comparer">The specified <see cref="IEqualityComparer{Char}"/> instance.</param>
+        /// <returns>
+        /// The zero-based index positions of value in reverse order if one or more <paramref name="t"/> are found. 
+        /// If <paramref name="t"/> is empty, no indexes will be enumerated.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="startIndex"/> is less than zero or greater than <see cref="IReadOnlyCollection{T}.Count">Count</see> of <paramref name="s"/>.
+        /// </exception>
         public static IEnumerable<int> LastIndexesOf(this string s, IReadOnlyList<char> t, int startIndex, IEqualityComparer<char> comparer)
         {
             return s.AsReadOnlyList().LastIndexesOf(t, startIndex, comparer);
@@ -647,13 +813,24 @@ namespace AlgorithmForce.Searching
         #endregion
 
         #region Wrapper
-        
+
+        /// <summary>
+        /// Wrap a <see cref="IList{T}"/> instant as a read-only list.
+        /// </summary>
+        /// <typeparam name="T">The type of element in the collection.</typeparam>
+        /// <param name="list">The instance to be wrapped.</param>
+        /// <returns>A wrapped collection.</returns>
         public static IReadOnlyList<T> AsReadOnlyList<T>(this IList<T> list)
             where T : IEquatable<T>
         {
             return list == null ? default(IReadOnlyList<T>) : new ListWrapper<T>(list);
         }
 
+        /// <summary>
+        /// Wrap a string instance as a read-only character collection.
+        /// </summary>
+        /// <param name="str">The string to be wrapped.</param>
+        /// <returns>A wrapped string.</returns>
         public static IReadOnlyList<char> AsReadOnlyList(this string str)
         {
             return str == null ? default(IReadOnlyList<char>) : new StringWrapper(str);
