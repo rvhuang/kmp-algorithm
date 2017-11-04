@@ -1,6 +1,6 @@
 # Overview
 
-[![Build Status](https://travis-ci.org/rvhuang/kmp-algorithm.svg?branch=master)](https://travis-ci.org/rvhuang/kmp-algorithm)
+[![Build Status](https://travis-ci.org/rvhuang/kmp-algorithm.svg?branch=master)](https://travis-ci.org/rvhuang/kmp-algorithm) [![algorithm-force MyGet Build Status](https://www.myget.org/BuildSource/Badge/algorithm-force?identifier=dae1708a-833c-4128-aaa9-0811c1fe33c6)](https://www.myget.org/)
 
 **KMP Algorithm .NET** is the .NET implementation of Knuth–Morris–Pratt algorithm. The project defines a set of extension methods that apply the algorithm to strings and lists.
 
@@ -44,7 +44,7 @@ The backward version of KMP algorithm is used in the following example.
 
 ### Index Enumeration
 
-The project provides iterator pattern for forward and backward index enumeration. The following example enumerates each of indexes by calling ```IndexesOf``` and ```LastIndexesOf``` method.
+The project provides iterator pattern for forward and backward index enumeration. The following example enumerates each of indexes by calling ```IndexesOf``` and ```LastIndexesOf``` extension method.
 
 ```cs
     var s = "1231abcdabcd123231abcdabcdabcdtrefabc";
@@ -61,11 +61,10 @@ The project provides iterator pattern for forward and backward index enumeration
     }
 ```
 
-In this example, caller can start enumerating the collection of indexes before all indexes are found.
+In this example, caller can start enumerating each index before all indexes are found.
 
 ## Future Works
 
-* Full documentation comments and Nuget package.
 * `IndexOfAny` implementation.
 
 ## Platform
