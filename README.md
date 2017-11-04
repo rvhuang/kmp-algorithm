@@ -1,6 +1,6 @@
 # Overview
 
-[![Build Status](https://travis-ci.org/rvhuang/kmp-algorithm.svg?branch=master)](https://travis-ci.org/rvhuang/kmp-algorithm) [![algorithm-force MyGet Build Status](https://www.myget.org/BuildSource/Badge/algorithm-force?identifier=dae1708a-833c-4128-aaa9-0811c1fe33c6)](https://www.myget.org/)
+[![Build Status](https://travis-ci.org/rvhuang/kmp-algorithm.svg?branch=master)](https://travis-ci.org/rvhuang/kmp-algorithm) [![algorithm-force MyGet Build Status](https://www.myget.org/BuildSource/Badge/algorithm-force?identifier=dae1708a-833c-4128-aaa9-0811c1fe33c6)](https://www.myget.org/feed/algorithm-force/package/nuget/AlgorithmForce.Searching)
 
 **KMP Algorithm .NET** is the .NET implementation of Knuth–Morris–Pratt algorithm. The project defines a set of extension methods that apply the algorithm to strings and lists.
 
@@ -9,6 +9,10 @@ Unlike traditional KMP algorithm uses which are focused on string searching, the
 The project also includes a "backward" version of KMP algorithm that searches the last occurrence of the target within the instance. 
 
 ## Getting Started
+
+### Installation
+
+    PM> Install-Package AlgorithmForce.Searching -Source https://www.myget.org/F/algorithm-force/api/v3/index.json
 
 ### First and Last Index Search
 
