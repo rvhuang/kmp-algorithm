@@ -69,8 +69,9 @@ In this example, caller can start enumerating each index before all indexes are 
 
 ## Future Works
 
-* Vertical Search in a collecton of collections.
-* `IndexOfAny` implementation.
+* Source collection with deferred execution 
+* Vertical Search in a collecton of collections
+* `IndexOfAny` implementation
 
 ## Platform
 
