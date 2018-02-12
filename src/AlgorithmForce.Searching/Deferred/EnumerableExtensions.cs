@@ -142,6 +142,55 @@ namespace AlgorithmForce.Searching.Deferred
             return -1;
         }
 
+        internal static IEnumerable<int> EnumerateIndexes<T>(this IEnumerable<T> s, IReadOnlyList<T> t, int startIndex, IEqualityComparer<T> comparer)
+            where T : IEquatable<T>
+        {
+            var table = TableBuilder.BuildTable(t, comparer);
+            var i = 0;
+            var offset = startIndex + 1;
+
+            using (var enumerator = s.GetEnumerator())
+            {
+                while (Skip(enumerator, offset) != null)
+                {
+                    if (comparer.Equals(t[i], enumerator.Current))
+                    {
+                        if (i == t.Count - 1)
+                        {
+                            yield return startIndex;
+
+                            startIndex++;
+                            offset = 1;
+                            i = 0;
+                        }
+                        else
+                        {
+                            i++;
+                        }
+                    }
+                    else
+                    {
+                        // We will extract this as a method GetOffset() in future version
+                        // for upcoming APIs:
+                        // 1. IndexOfAny(IReadOnlyList{T}, IEnumerable{IReadOnlyList{T}})
+                        // 2. IndexesOfAll(IReadOnlyList{T}, IEnumerable{IReadOnlyList{T}}).
+                        if (table[i] > -1)
+                        {
+                            startIndex += i;
+                            offset = i;
+                            i = table[i];
+                        }
+                        else
+                        {
+                            startIndex++;
+                            offset = 1;
+                            i = 0;
+                        }
+                    }
+                }
+            }
+        }
+
         #endregion
 
         #region Others
@@ -149,12 +198,36 @@ namespace AlgorithmForce.Searching.Deferred
         internal static int IndexOf<T>(this IEnumerable<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
             where T : IEquatable<T>
         {
-            foreach(var e in s)
+            var offset = startIndex + 1;
+
+            using (var enumerator = s.GetEnumerator())
             {
-                if (comparer.Equals(e, t)) return startIndex;
-                startIndex++;
+                while (Skip(enumerator, offset) != null)
+                {
+                    if (comparer.Equals(t, enumerator.Current)) return startIndex;
+
+                    startIndex++;
+                    offset = 1;
+                }
             }
             return -1;
+        }
+
+        internal static IEnumerable<int> EnumerateIndexes<T>(this IEnumerable<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
+            where T : IEquatable<T>
+        {
+            var offset = startIndex + 1;
+
+            using (var enumerator = s.GetEnumerator())
+            {
+                while (Skip(enumerator, offset) != null)
+                {
+                    if (comparer.Equals(t, enumerator.Current)) yield return startIndex;
+
+                    startIndex++;
+                    offset = 1;
+                }
+            }
         }
 
         internal static IEnumerator<T> Skip<T>(IEnumerator<T> enumerator, int count)
