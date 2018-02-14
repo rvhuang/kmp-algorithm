@@ -846,10 +846,10 @@ namespace AlgorithmForce.Searching
             if (t == null) throw new ArgumentNullException(nameof(t));
 
             if (startIndex < 0)
-                throw new ArgumentOutOfRangeException(nameof(s), "Value is less than zero.");
+                throw new ArgumentOutOfRangeException(nameof(startIndex), "Value is less than zero.");
 
             if (startIndex >= s.Count)
-                throw new ArgumentOutOfRangeException(nameof(s), "Value is greater than the length of s.");
+                throw new ArgumentOutOfRangeException(nameof(startIndex), "Value is greater than the length of s.");
         }
 
         internal static int IndexOf<T>(this IReadOnlyList<T> s, T t, int startIndex, IEqualityComparer<T> comparer)

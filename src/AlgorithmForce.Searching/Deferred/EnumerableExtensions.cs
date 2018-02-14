@@ -97,7 +97,7 @@ namespace AlgorithmForce.Searching.Deferred
         public static int IndexOf<T>(this IEnumerable<T> s, IReadOnlyList<T> t, int startIndex, IEqualityComparer<T> comparer)
             where T : IEquatable<T>
         {
-            Validate(s, t);
+            Validate(s, t, startIndex);
 
             // Follow the behavior of string.IndexOf(string) method. 
             if (t.Count == 0) return 0;
@@ -141,6 +141,102 @@ namespace AlgorithmForce.Searching.Deferred
             }
             return -1;
         }
+
+
+        #region IReadOnlyList(T) (IndexesOf)
+        
+        /// <summary>
+        /// Enumerates each zero-based index of all occurrences of the specified collection in this instance.
+        /// </summary>
+        /// <param name="s">The current collection.</param>
+        /// <param name="t">The collection to seek.</param>
+        /// <typeparam name="T">The type of element in the collection.</typeparam>
+        /// <returns>
+        /// The zero-based index positions of value if one or more <paramref name="t"/> are found. 
+        /// If <paramref name="t"/> is empty, no indexes will be enumerated.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
+        public static IEnumerable<int> IndexesOf<T>(this IEnumerable<T> s, IReadOnlyList<T> t)
+            where T : IEquatable<T>
+        {
+            return s.IndexesOf(t, 0, EqualityComparer<T>.Default);
+        }
+
+        /// <summary>
+        /// Enumerates each zero-based index of all occurrences of the specified collection in this instance
+        /// and uses the specified <see cref="IEqualityComparer{T}"/>.
+        /// </summary>
+        /// <param name="s">The current collection.</param>
+        /// <param name="t">The collection to seek.</param>
+        /// <param name="comparer">The specified <see cref="IEqualityComparer{T}"/> instance.</param>
+        /// <typeparam name="T">The type of element in the collection.</typeparam>
+        /// <returns>
+        /// The zero-based index positions of value if one or more <paramref name="t"/> are found. 
+        /// If <paramref name="t"/> is empty, no indexes will be enumerated.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
+        public static IEnumerable<int> IndexesOf<T>(this IEnumerable<T> s, IReadOnlyList<T> t, IEqualityComparer<T> comparer)
+            where T : IEquatable<T>
+        {
+            return s.IndexesOf(t, 0, comparer);
+        }
+
+        /// <summary>
+        /// Enumerates each zero-based index of all occurrences of the specified collection in this instance.
+        /// The search starts at a specified position.
+        /// </summary>
+        /// <param name="s">The current collection.</param>
+        /// <param name="t">The collection to seek.</param>
+        /// <param name="startIndex">The search starting position.</param>
+        /// <typeparam name="T">The type of element in the collection.</typeparam>
+        /// <returns>
+        /// The zero-based index positions of value if one or more <paramref name="t"/> are found. 
+        /// If <paramref name="t"/> is empty, no indexes will be enumerated.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="startIndex"/> is less than zero.
+        /// </exception>
+        public static IEnumerable<int> IndexesOf<T>(this IEnumerable<T> s, IReadOnlyList<T> t, int startIndex)
+            where T : IEquatable<T>
+        {
+            return s.IndexesOf(t, startIndex, EqualityComparer<T>.Default);
+        }
+
+        /// <summary>
+        /// Enumerates each zero-based index of all occurrences of the specified collection in this instance
+        /// and uses the specified <see cref="IEqualityComparer{T}"/>.
+        /// The search starts at a specified position.
+        /// </summary>
+        /// <param name="s">The current collection.</param>
+        /// <param name="t">The collection to seek.</param>
+        /// <param name="startIndex">The search starting position.</param>
+        /// <param name="comparer">The specified <see cref="IEqualityComparer{T}"/> instance.</param>
+        /// <typeparam name="T">The type of element in the collection.</typeparam>
+        /// <returns>
+        /// The zero-based index positions of value if one or more <paramref name="t"/> are found. 
+        /// If <paramref name="t"/> is empty, no indexes will be enumerated.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="startIndex"/> is less than zero.
+        /// </exception>
+        public static IEnumerable<int> IndexesOf<T>(this IEnumerable<T> s, IReadOnlyList<T> t, int startIndex, IEqualityComparer<T> comparer)
+            where T : IEquatable<T>
+        {
+            Validate(s, t, startIndex);
+
+            if (comparer == null) comparer = EqualityComparer<T>.Default;
+            if (t.Count == 1)
+                return EnumerateIndexes(s, t[0], startIndex, comparer);
+            else
+                return EnumerateIndexes(s, t, startIndex, comparer);
+        }
+
+
+        #endregion
+
+        #region Others
 
         internal static IEnumerable<int> EnumerateIndexes<T>(this IEnumerable<T> s, IReadOnlyList<T> t, int startIndex, IEqualityComparer<T> comparer)
             where T : IEquatable<T>
@@ -193,8 +289,6 @@ namespace AlgorithmForce.Searching.Deferred
 
         #endregion
 
-        #region Others
-
         internal static int IndexOf<T>(this IEnumerable<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
             where T : IEquatable<T>
         {
@@ -245,10 +339,13 @@ namespace AlgorithmForce.Searching.Deferred
             return enumerator;
         }
 
-        internal static void Validate<T>(IEnumerable<T> s, IReadOnlyList<T> t)
+        internal static void Validate<T>(IEnumerable<T> s, IReadOnlyList<T> t, int startIndex)
         {
             if (s == null) throw new ArgumentNullException(nameof(s));
             if (t == null) throw new ArgumentNullException(nameof(t));
+
+            if (startIndex < 0)
+                throw new ArgumentOutOfRangeException(nameof(startIndex), "Value is less than zero.");
         }
 
         #endregion
