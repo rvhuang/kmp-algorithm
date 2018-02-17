@@ -149,10 +149,17 @@ namespace AlgorithmForce.Searching.Deferred
         internal static int IndexOf<T>(this IEnumerable<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
             where T : IEquatable<T>
         {
-            foreach(var e in s)
+            var offset = startIndex + 1;
+
+            using (var enumerator = s.GetEnumerator())
             {
-                if (comparer.Equals(e, t)) return startIndex;
-                startIndex++;
+                while (Skip(enumerator, offset) != null)
+                {
+                    if (comparer.Equals(t, enumerator.Current)) return startIndex;
+
+                    startIndex++;
+                    offset = 1;
+                }
             }
             return -1;
         }
