@@ -142,186 +142,19 @@ namespace AlgorithmForce.Searching.Deferred
             return -1;
         }
 
-
-        #region IReadOnlyList(T) (IndexesOf)
-        
-        /// <summary>
-        /// Enumerates each zero-based index of all occurrences of the specified collection in this instance.
-        /// </summary>
-        /// <param name="s">The current collection.</param>
-        /// <param name="t">The collection to seek.</param>
-        /// <typeparam name="T">The type of element in the collection.</typeparam>
-        /// <returns>
-        /// The zero-based index positions of value if one or more <paramref name="t"/> are found. 
-        /// If <paramref name="t"/> is empty, no indexes will be enumerated.
-        /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
-        public static IEnumerable<int> IndexesOf<T>(this IEnumerable<T> s, IReadOnlyList<T> t)
-            where T : IEquatable<T>
-        {
-            return s.IndexesOf(t, 0, EqualityComparer<T>.Default);
-        }
-
-        /// <summary>
-        /// Enumerates each zero-based index of all occurrences of the specified collection in this instance
-        /// and uses the specified <see cref="IEqualityComparer{T}"/>.
-        /// </summary>
-        /// <param name="s">The current collection.</param>
-        /// <param name="t">The collection to seek.</param>
-        /// <param name="comparer">The specified <see cref="IEqualityComparer{T}"/> instance.</param>
-        /// <typeparam name="T">The type of element in the collection.</typeparam>
-        /// <returns>
-        /// The zero-based index positions of value if one or more <paramref name="t"/> are found. 
-        /// If <paramref name="t"/> is empty, no indexes will be enumerated.
-        /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
-        public static IEnumerable<int> IndexesOf<T>(this IEnumerable<T> s, IReadOnlyList<T> t, IEqualityComparer<T> comparer)
-            where T : IEquatable<T>
-        {
-            return s.IndexesOf(t, 0, comparer);
-        }
-
-        /// <summary>
-        /// Enumerates each zero-based index of all occurrences of the specified collection in this instance.
-        /// The search starts at a specified position.
-        /// </summary>
-        /// <param name="s">The current collection.</param>
-        /// <param name="t">The collection to seek.</param>
-        /// <param name="startIndex">The search starting position.</param>
-        /// <typeparam name="T">The type of element in the collection.</typeparam>
-        /// <returns>
-        /// The zero-based index positions of value if one or more <paramref name="t"/> are found. 
-        /// If <paramref name="t"/> is empty, no indexes will be enumerated.
-        /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="startIndex"/> is less than zero.
-        /// </exception>
-        public static IEnumerable<int> IndexesOf<T>(this IEnumerable<T> s, IReadOnlyList<T> t, int startIndex)
-            where T : IEquatable<T>
-        {
-            return s.IndexesOf(t, startIndex, EqualityComparer<T>.Default);
-        }
-
-        /// <summary>
-        /// Enumerates each zero-based index of all occurrences of the specified collection in this instance
-        /// and uses the specified <see cref="IEqualityComparer{T}"/>.
-        /// The search starts at a specified position.
-        /// </summary>
-        /// <param name="s">The current collection.</param>
-        /// <param name="t">The collection to seek.</param>
-        /// <param name="startIndex">The search starting position.</param>
-        /// <param name="comparer">The specified <see cref="IEqualityComparer{T}"/> instance.</param>
-        /// <typeparam name="T">The type of element in the collection.</typeparam>
-        /// <returns>
-        /// The zero-based index positions of value if one or more <paramref name="t"/> are found. 
-        /// If <paramref name="t"/> is empty, no indexes will be enumerated.
-        /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="startIndex"/> is less than zero.
-        /// </exception>
-        public static IEnumerable<int> IndexesOf<T>(this IEnumerable<T> s, IReadOnlyList<T> t, int startIndex, IEqualityComparer<T> comparer)
-            where T : IEquatable<T>
-        {
-            Validate(s, t, startIndex);
-
-            if (comparer == null) comparer = EqualityComparer<T>.Default;
-            if (t.Count == 1)
-                return EnumerateIndexes(s, t[0], startIndex, comparer);
-            else
-                return EnumerateIndexes(s, t, startIndex, comparer);
-        }
-
-
         #endregion
 
         #region Others
 
-        internal static IEnumerable<int> EnumerateIndexes<T>(this IEnumerable<T> s, IReadOnlyList<T> t, int startIndex, IEqualityComparer<T> comparer)
-            where T : IEquatable<T>
-        {
-            var table = TableBuilder.BuildTable(t, comparer);
-            var i = 0;
-            var offset = startIndex + 1;
-
-            using (var enumerator = s.GetEnumerator())
-            {
-                while (Skip(enumerator, offset) != null)
-                {
-                    if (comparer.Equals(t[i], enumerator.Current))
-                    {
-                        if (i == t.Count - 1)
-                        {
-                            yield return startIndex;
-
-                            startIndex++;
-                            offset = 1;
-                            i = 0;
-                        }
-                        else
-                        {
-                            i++;
-                        }
-                    }
-                    else
-                    {
-                        // We will extract this as a method GetOffset() in future version
-                        // for upcoming APIs:
-                        // 1. IndexOfAny(IReadOnlyList{T}, IEnumerable{IReadOnlyList{T}})
-                        // 2. IndexesOfAll(IReadOnlyList{T}, IEnumerable{IReadOnlyList{T}}).
-                        if (table[i] > -1)
-                        {
-                            startIndex += i;
-                            offset = i;
-                            i = table[i];
-                        }
-                        else
-                        {
-                            startIndex++;
-                            offset = 1;
-                            i = 0;
-                        }
-                    }
-                }
-            }
-        }
-
-        #endregion
-
         internal static int IndexOf<T>(this IEnumerable<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
             where T : IEquatable<T>
         {
-            var offset = startIndex + 1;
-
-            using (var enumerator = s.GetEnumerator())
+            foreach(var e in s)
             {
-                while (Skip(enumerator, offset) != null)
-                {
-                    if (comparer.Equals(t, enumerator.Current)) return startIndex;
-
-                    startIndex++;
-                    offset = 1;
-                }
+                if (comparer.Equals(e, t)) return startIndex;
+                startIndex++;
             }
             return -1;
-        }
-
-        internal static IEnumerable<int> EnumerateIndexes<T>(this IEnumerable<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
-            where T : IEquatable<T>
-        {
-            var offset = startIndex + 1;
-
-            using (var enumerator = s.GetEnumerator())
-            {
-                while (Skip(enumerator, offset) != null)
-                {
-                    if (comparer.Equals(t, enumerator.Current)) yield return startIndex;
-
-                    startIndex++;
-                    offset = 1;
-                }
-            }
         }
 
         internal static IEnumerator<T> Skip<T>(IEnumerator<T> enumerator, int count)
