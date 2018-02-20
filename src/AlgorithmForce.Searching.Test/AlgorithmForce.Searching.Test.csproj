@@ -11,7 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\AlgorithmForce.Searching\Extensions.cs;..\AlgorithmForce.Searching\ListWrapper.cs;..\AlgorithmForce.Searching\StringWrapper.cs" />
+    <Compile Include="..\AlgorithmForce.Searching\Extensions.cs;" />
+    <Compile Include="..\AlgorithmForce.Searching\ListWrapper.cs;" />
+    <Compile Include="..\AlgorithmForce.Searching\StringWrapper.cs;" />
+    <Compile Include="..\AlgorithmForce.Searching\TableBuilder.cs;" />
+    <Compile Include="..\AlgorithmForce.Searching\Deferred\EnumerableExtensions.cs;" />
+    <Compile Include="..\AlgorithmForce.Searching\Deferred\ReaderExtensions.cs;" />
   </ItemGroup>
 
   <ItemGroup>

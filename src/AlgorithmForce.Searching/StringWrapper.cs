@@ -1,8 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace AlgorithmForce.Searching
 {
+    /// <summary>
+    /// If one day string implements IReadOnlyList{T} we may dig out this class
+    /// </summary>
     class StringWrapper : IReadOnlyList<char>
     {
         #region Fields

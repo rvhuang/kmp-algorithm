@@ -98,7 +98,7 @@ namespace AlgorithmForce.Searching
             if (comparer == null) comparer = EqualityComparer<T>.Default;
             if (t.Count == 1) return s.IndexOf(t[0], startIndex, comparer);
 
-            var table = BuildTable(t, comparer);
+            var table = TableBuilder.BuildTable(t, comparer);
             var i = 0;
 
             while (startIndex + i < s.Count)
@@ -292,7 +292,7 @@ namespace AlgorithmForce.Searching
             if (comparer == null) comparer = EqualityComparer<T>.Default;
             if (t.Count == 1) return LastIndexOf(s, t[0], startIndex, comparer);
 
-            var table = BuildTable(t, comparer);
+            var table = TableBuilder.BuildTable(t, comparer);
             var i = 0;
 
             while (startIndex - i >= 0) 
@@ -489,7 +489,7 @@ namespace AlgorithmForce.Searching
         internal static IEnumerable<int> EnumerateIndexes<T>(IReadOnlyList<T> s, IReadOnlyList<T> t, int startIndex, IEqualityComparer<T> comparer)
             where T : IEquatable<T>
         {
-            var table = BuildTable(t, comparer);
+            var table = TableBuilder.BuildTable(t, comparer);
             var i = 0;
 
             while (startIndex + i < s.Count)
@@ -697,7 +697,7 @@ namespace AlgorithmForce.Searching
         internal static IEnumerable<int> EnumerateLastIndexes<T>(IReadOnlyList<T> s, IReadOnlyList<T> t, int startIndex, IEqualityComparer<T> comparer)
             where T : IEquatable<T>
         {
-            var table = BuildTable(t, comparer);
+            var table = TableBuilder.BuildTable(t, comparer);
             var i = 0;
 
             while (startIndex - i >= 0)
@@ -846,10 +846,10 @@ namespace AlgorithmForce.Searching
             if (t == null) throw new ArgumentNullException(nameof(t));
 
             if (startIndex < 0)
-                throw new ArgumentOutOfRangeException(nameof(s), "Value is less than zero.");
+                throw new ArgumentOutOfRangeException(nameof(startIndex), "Value is less than zero.");
 
             if (startIndex >= s.Count)
-                throw new ArgumentOutOfRangeException(nameof(s), "Value is greater than the length of s.");
+                throw new ArgumentOutOfRangeException(nameof(startIndex), "Value is greater than the length of s.");
         }
 
         internal static int IndexOf<T>(this IReadOnlyList<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
@@ -892,37 +892,6 @@ namespace AlgorithmForce.Searching
                 if (comparer.Equals(s[i], t))
                     yield return i;
             }
-        }
-
-        internal static int[] BuildTable<T>(IReadOnlyList<T> t, IEqualityComparer<T> comparer)
-            where T : IEquatable<T>
-        {
-            var table = new int[t.Count];
-            var i = 2;
-            var j = 0;
-
-            table[0] = -1;
-            table[1] = 0;
-
-            while (i < t.Count)
-            {
-                if (comparer.Equals(t[i - 1], t[j]))
-                {
-                    table[i] = j + 1;
-                    i++;
-                    j++;
-                }
-                else if (j > 0)
-                {
-                    j = table[j];
-                }
-                else
-                {
-                    table[i] = 0;
-                    i++;
-                }
-            }
-            return table;
         }
 
         #endregion
