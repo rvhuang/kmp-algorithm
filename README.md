@@ -69,7 +69,7 @@ In this example, caller can start enumerating each index before all indexes are 
 
 ### Searching in Deferred Execution
 
-The projects provide a set of `IndexOf` APIs optimized for [IEnumerable(T)](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1) instance that is produced in **deferred execution**. That is, the search can start before whole collection is ready. The APIs are defined in `AlgorithmForce.Searching.Deferred` namespace.
+The project provides a set of `IndexOf` APIs optimized for [IEnumerable(T)](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1) instance that is produced in **deferred execution**. That is, the search can start before whole collection is ready. The APIs are defined in `AlgorithmForce.Searching.Deferred` namespace.
 
 The following example shows how to search an array of numbers in `Enumerable.Range()`.
 
