@@ -4,7 +4,7 @@
 
 **KMP Algorithm .NET** is the .NET implementation of Knuth–Morris–Pratt algorithm. The project defines a set of extension methods that apply the algorithm to strings and lists.
 
-Unlike traditional KMP algorithm uses which are focused on string instances, the project provides a set of generic APIs that apply KMP algorithm to [IEnumerable(T)](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1), [IList(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.ilist-1) and [IReadOnlyList(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.ireadonlylist-1), as long as type T is [equatable](https://docs.microsoft.com/en-us/dotnet/core/api/system.iequatable-1). This expands the applicability of the algorithm, making searching an array of bytes in a longer array, or a collection of floats in an array of floats with same algorithm possible. In some cases, you may specify optional parameter [IEqualityComparer(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.iequalitycomparer-1) instance to provide different comparison behavior for type `T`.
+Unlike traditional KMP algorithm uses which are focused on string instances, the project provides a set of generic APIs that apply KMP algorithm to [IEnumerable(T)](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1), [IList(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.ilist-1) and [IReadOnlyList(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.ireadonlylist-1), as long as type ``T`` is [equatable](https://docs.microsoft.com/en-us/dotnet/core/api/system.iequatable-1). This expands the applicability of the algorithm, making searching an array of bytes in a longer array, or a collection of floats in an array of floats with same algorithm possible. In some cases, you may specify optional parameter [IEqualityComparer(T)](https://docs.microsoft.com/en-us/dotnet/core/api/system.collections.generic.iequalitycomparer-1) instance to provide different comparison behavior for type `T`.
 
 The project also includes a "backward" version of KMP algorithm that searches the last occurrence of the target within the instance. 
 
@@ -94,6 +94,14 @@ A set of APIs that wrap [TextReader](https://docs.microsoft.com/en-us/dotnet/api
         // 13
     }
 ```
+
+## Table of Features
+
+| Search In\Search With | IEnumerable(T) | IReadOnlyList(T) | string |
+|-----------------------|----------------|------------------|--------|
+| IEnumerable(T)        | Not Supported  | IndexOf()        | IndexOf() |
+| IReadOnlyList(T)      | Not Supported  | IndexOf(), LastIndexOf(), IndexesOf(), LastIndexesOf() | IndexOf(), LastIndexOf(), IndexesOf(), LastIndexesOf() |
+| string                | Not Supported  | IndexOf(). LastIndexOf(), IndexesOf(), LastIndexesOf() | Native APIs, IndexesOf(), LastIndexesOf() |
 
 ## Future Works
 
