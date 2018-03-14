@@ -144,6 +144,86 @@ namespace AlgorithmForce.Searching.Deferred
 
         #endregion
 
+        #region string (IndexOf)
+
+        /// <summary>
+        /// Reports the zero-based index of the first occurrence of the specified collection in this instance.
+        /// </summary>
+        /// <param name="s">The current collection.</param>
+        /// <param name="t">The collection to seek.</param>
+        /// <returns>
+        /// The zero-based index position of value if <paramref name="t"/> is found, or -1 if it is not. 
+        /// If <paramref name="t"/> is empty, the return value is 0.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
+        public static int IndexOf(this IEnumerable<char> s, string t)
+        {
+            return s.IndexOf(t, 0, EqualityComparer<char>.Default);
+        }
+
+        /// <summary>
+        /// Reports the zero-based index of the first occurrence of the specified collection in this instance
+        /// and uses the specified <see cref="IEqualityComparer{T}"/>.
+        /// </summary>
+        /// <param name="s">The current collection.</param>
+        /// <param name="t">The collection to seek.</param>
+        /// <param name="comparer">The specified <see cref="IEqualityComparer{T}"/> instance.</param>
+        /// <returns>
+        /// The zero-based index position of value if <paramref name="t"/> is found, or -1 if it is not. 
+        /// If <paramref name="t"/> is empty, the return value is 0.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
+        public static int IndexOf(this IEnumerable<char> s, string t, IEqualityComparer<char> comparer)
+        {
+            return s.IndexOf(t, 0, comparer);
+        }
+
+        /// <summary>
+        /// Reports the zero-based index of the first occurrence of the specified collection in this instance.
+        /// The search starts at a specified position.
+        /// </summary>
+        /// <param name="s">The current collection.</param>
+        /// <param name="t">The collection to seek.</param>
+        /// <param name="startIndex">The search starting position.</param>
+        /// <returns>
+        /// The zero-based index position of value if <paramref name="t"/> is found, or -1 if it is not. 
+        /// If <paramref name="t"/> is empty, the return value is 0.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="startIndex"/> is less than zero.
+        /// </exception>
+        public static int IndexOf(this IEnumerable<char> s, string t, int startIndex)
+        {
+            return s.IndexOf(t, startIndex, EqualityComparer<char>.Default);
+        }
+
+        /// <summary>
+        /// Reports the zero-based index of the first occurrence of the specified string in this instance
+        /// and uses the specified <see cref="IEqualityComparer{T}"/>.
+        /// The search starts at a specified position.
+        /// </summary>
+        /// <param name="s">The current collection.</param>
+        /// <param name="t">The string to seek.</param>
+        /// <param name="startIndex">The search starting position.</param>
+        /// <param name="comparer">The specified <see cref="IEqualityComparer{T}"/> instance.</param>
+        /// <returns>
+        /// The zero-based index position of value if <paramref name="t"/> is found, or -1 if it is not. 
+        /// If <paramref name="t"/> is empty, the return value is 0.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="s"/> or <paramref name="t"/> is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="startIndex"/> is less than zero.
+        /// </exception>
+        public static int IndexOf(this IEnumerable<char> s, string t, int startIndex, IEqualityComparer<char> comparer)
+        {
+            Validate(s, t, startIndex);
+            
+            return s.IndexOf(t.AsReadOnlyList(), startIndex, comparer);
+        }
+
+        #endregion
+
         #region Others
 
         internal static int IndexOf<T>(this IEnumerable<T> s, T t, int startIndex, IEqualityComparer<T> comparer)
@@ -179,7 +259,7 @@ namespace AlgorithmForce.Searching.Deferred
             return enumerator;
         }
 
-        internal static void Validate<T>(IEnumerable<T> s, IReadOnlyList<T> t, int startIndex)
+        internal static void Validate<T>(IEnumerable<T> s, IEnumerable<T> t, int startIndex)
         {
             if (s == null) throw new ArgumentNullException(nameof(s));
             if (t == null) throw new ArgumentNullException(nameof(t));
