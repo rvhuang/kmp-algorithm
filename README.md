@@ -106,6 +106,7 @@ A set of APIs that wrap [TextReader](https://docs.microsoft.com/en-us/dotnet/api
 ## Future Works
 
 * `IndexOfAny()` and `IndexesOfAll()` implementation
+* `Span(T)` and/or `ReadOnlySpan(T)` support
 * Vertical Search in a collecton of collections
 
 ## Platform
