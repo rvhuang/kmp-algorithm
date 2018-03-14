@@ -97,7 +97,7 @@ A set of APIs that wrap [TextReader](https://docs.microsoft.com/en-us/dotnet/api
 
 ## Table of Features
 
-| Search In\Search With | IEnumerable(T) | IReadOnlyList(T) | string |
+| Search In \ With | IEnumerable(T) | IReadOnlyList(T) | string |
 |-----------------------|----------------|------------------|--------|
 | IEnumerable(T)        | Not Supported  | IndexOf()        | IndexOf() |
 | IReadOnlyList(T)      | Not Supported  | IndexOf(), LastIndexOf(), IndexesOf(), LastIndexesOf() | IndexOf(), LastIndexOf(), IndexesOf(), LastIndexesOf() |
